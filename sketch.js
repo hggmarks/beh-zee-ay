@@ -1,10 +1,11 @@
+let clickControl = false;
 
 function setup() {
-  createCanvas(1920, 1080);
+  createCanvas(windowWidth - 100, windowHeight);
   noFill();
   stroke(255);
   strokeWeight(5);
-
+  createGUI();
 }
 
 function draw() {
@@ -12,7 +13,7 @@ function draw() {
 
   // Draw control points
   for (let p of controlPoints) {
-    ellipse(p.x, p.y, 10, 10);
+    point(p.x, p.y, 10, 10);
   }
 
   // Calculate Bezier curve points
@@ -33,3 +34,15 @@ function draw() {
   }
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth - 100, windowHeight);
+}
+
+function mousePressed() {
+
+  if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
+    if (state & 0b1) {
+      addPoint();
+    }
+  }
+}
