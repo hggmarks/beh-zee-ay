@@ -1,10 +1,12 @@
 let clickControl = false;
+const pointSize = 15;
+const lineSize = 5;
 
 function setup() {
   createCanvas(windowWidth - 100, windowHeight);
   noFill();
   stroke(255);
-  strokeWeight(5);
+  strokeWeight(lineSize);
   createGUI();
 }
 
@@ -13,7 +15,9 @@ function draw() {
 
   // Draw control points
   for (let p of controlPoints) {
+    strokeWeight(pointSize);
     point(p.x, p.y, 10, 10);
+    strokeWeight(lineSize);
   }
 
   // Calculate Bezier curve points
@@ -43,6 +47,18 @@ function mousePressed() {
   if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
     if (state & 0b1) {
       addPoint();
+    } else {
+      selectedPoint = isControlPoint(mouseX, mouseY, pointSize); 
     }
   }
+}
+
+
+function mouseDragged() {
+  onDragged();
+}
+
+
+function mouseReleased() {
+  onMouseReleased();
 }
